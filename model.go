@@ -1,4 +1,4 @@
-package model
+package main
 
 import (
 	"github.com/mb-14/gomarkov"

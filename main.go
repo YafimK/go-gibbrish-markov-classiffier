@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.houston.softwaregrp.net/Performance-Engineering/go-gibbrish-markov-chain-classifier/model"
+	"github.houston.softwaregrp.net/Performance-Engineering/go-gibbrish-markov-chain-classifier/word_model"
 	"log"
 	"os"
 )
@@ -43,20 +43,20 @@ func main() {
 	}
 
 	if train.Parsed() {
-		model := model.BuildModel()
-		model.SaveModelToJson(model)
+		trainedModel := BuildModel()
+		SaveModelToJson(trainedModel)
 	} else if checkString.Parsed() {
 		word := checkString.Args()[0]
 		if len(word) == 0 {
 			fmt.Printf("Please write a word after the command to check a string")
 			return
 		}
-		model, err := loadModel()
+		trainedModel, err :=  LoadModelFromJson()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		traceIsWordGibrish(model, word)
+		word_model.TraceIsWordGibrish(word_model, word)
 	} else if testList.Parsed() {
 		inputFileName := testList.Args()[0]
 		words, err := getDataset(inputFileName)

@@ -1,4 +1,4 @@
-package model
+package main
 
 import (
 	"bufio"
@@ -15,7 +15,6 @@ import (
 )
 
 const defaultMinimumProbabilityForTraining = 0.05
-const defaultMinimumProbabilityForPrediction = 0.00005
 
 
 func buildChain(sourceFiles []string) *gomarkov.Chain {
@@ -50,7 +49,7 @@ func getModelScoresForFile(chain *gomarkov.Chain, filepath string, minimumProbab
 		if len(word) < 4 {
 			continue
 		}
-		score := sequenceProbability(chain, word, false, minimumProbability)
+		score := SequenceProbablity(chain, word, false, minimumProbability)
 		if math.IsNaN(score) {
 			score = minimumProbability
 			continue
@@ -158,7 +157,7 @@ func split(str string) []string {
 	return strings.Split(str, "")
 }
 
-func sequenceProbability(chain *gomarkov.Chain, input string, trace bool, unseenPairProbability float64) float64 {
+func SequenceProbability(chain *gomarkov.Chain, input string, trace bool, unseenPairProbability float64) float64 {
 	// sanitized := santizeString(input)
 	input = strings.ToLower(input)
 	tokens := split(input)

@@ -1,4 +1,4 @@
-module github.houston.softwaregrp.net/Performance-Engineering/go-gibbrish-markov-chain-classifier
+module go-gibbrish-markov-chain-classifier
 
 go 1.12
 
